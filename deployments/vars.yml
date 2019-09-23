@@ -1,0 +1,6 @@
+#properties_file_path: /tmp/fwd-ansible.properties
+snapshot_id: 272
+freshness: 1h
+snapshot_name: Before-Temp
+snapshot_path: /tmp/Before.zip
+#check_id: 1260

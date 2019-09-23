@@ -1,0 +1,11 @@
+- name: Test networks
+  connection: local
+  hosts: localhost
+  tasks:
+    - name: Get networks
+      forward_network:
+        keyword: ansible
+      register: result
+    - name: Print networks
+      debug:
+        msg: '{{ result }}'

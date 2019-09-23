@@ -1,0 +1,27 @@
+- name: Ensure HTTP/HTTPS traffic between ESXi virtual switches matches our expectation
+  hosts: localhost
+  vars:
+    expected_check_status: PASS  # Default status for the test (after change)
+    freshness: 10m  # Default freshness for future changes, but can be overidden.
+  tasks:
+    - name: Ensure a recent snapshot is available, and has the desired freshness
+      forward_snapshot:
+        freshness: "{{ freshness }}"
+        mock_snapshot:
+          name: "{{ snapshot_name }}"
+          path: "{{ snapshot_path }}"
+      register: snapshot_output
+
+    - name: Ensure a check matching our intent is present, and has the expected value
+      forward_check:
+        state: Present
+        name: "Check added by Ansible"
+        type: "typical_5_tuple"
+        data:
+          source: "ESXi-2_vSwitch23"
+          ipv4_dst: "10.110.57.34"
+          ip_proto: tcp
+          tp_src: http
+          tp_dst: https
+      register: check_output
+      failed_when: check_output.result.status != expected_check_status

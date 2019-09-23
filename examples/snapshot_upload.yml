@@ -1,0 +1,14 @@
+- name: Test Internet to Web server
+  connection: local
+  hosts: localhost
+  tasks:
+    - name: Upload new snapshot
+      forward_snapshot:
+        freshness: "{{ freshness }}"
+        mock_snapshot:
+          name: "{{ snapshot_name }}"
+          path: "{{ snapshot_path }}"
+      register: result
+    - name: Print snapshot link
+      debug:
+        msg: '{{ result }}'

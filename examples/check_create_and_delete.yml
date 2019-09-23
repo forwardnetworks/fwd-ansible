@@ -1,0 +1,31 @@
+- name: Test Internet to Web server
+  connection: local
+  hosts: localhost
+  tasks:
+    - name: Create check
+      forward_check:
+        properties_file_path: "{{ properties_file_path }}"
+        snapshot_id: "{{ snapshot_id }}"
+        state: Present
+        name: "Check added by Ansible"
+        type: "typical_5_tuple"
+        data:
+          source: "ESXi-2_vSwitch23"
+          ipv4_dst: "10.110.57.34"
+          ip_proto: tcp
+          tp_src: http
+          tp_dst: https
+      register: result
+    - name: Debug
+      debug:
+        msg: '{{ result.result.id }}'
+    - name: Delete check
+      forward_check:
+        properties_file_path: "{{ properties_file_path }}"
+        snapshot_id: "{{ snapshot_id }}"
+        state: Absent
+        check_id: "{{ result.result.id }}"
+      register: result
+    - name: Debug
+      debug:
+        msg: '{{ result }}'
