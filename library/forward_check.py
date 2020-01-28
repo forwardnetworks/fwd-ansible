@@ -15,7 +15,7 @@ except:
 # Module documentation for ansible-doc.
 DOCUMENTATION = '''
 ---
-module: forward_collect
+module: forward_check
 short_description: Adds/removes/tests a provided check.
 description:
   - Adds/removes/tests a provided check.
@@ -66,7 +66,7 @@ options:
 EXAMPLES = '''
 ---
 - name: Check from device_A to 20.1.1.1:88000
-  forward_collect:
+  forward_check:
     url: https://localhost:8443
     username: admin
     password: password

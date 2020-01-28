@@ -1,0 +1,22 @@
+- name: Get networks from Forward Enterprise
+  connection: local
+  hosts: localhost
+
+  tasks:
+
+    - name: Get all networks with keyword "ansible"
+      forward_network:
+        keyword: ansible
+      register: networks_ansible
+
+    - name: Print all networks with keyword "ansible"
+      debug:
+        msg: '{{ networks_ansible }}'
+
+    - name: Get all networks
+      forward_network:
+      register: networks
+      
+    - name: Print all networks
+      debug:
+        msg: '{{ networks }}'

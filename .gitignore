@@ -2,3 +2,4 @@
 fwd_virtual/
 fwd-ansible.properties
 fwd-ansible-*.tar
+test.yml

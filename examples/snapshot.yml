@@ -1,0 +1,30 @@
+- name: Take a new collection and upload a snapshot
+  connection: local
+  hosts: localhost
+  tasks:
+
+    - name: Take new partial collection
+      forward_snapshot:
+        type: collect
+        wait_time: 120
+        devices:
+          - n9k01
+          - a7050
+      register: result
+
+    - name: Print new collection snapshot link
+      debug:
+        msg: 'The new collection snaphost link is: {{ result.snapshot_link }}'
+
+
+    - name: Upload snapshot
+      forward_snapshot:
+        type: mock
+        mock_snapshot:
+          name: "After"
+          path: "./data/esx_demo_snapshots/After.zip"
+      register: result
+
+    - name: Print uploaded snapshot link
+      debug:
+        msg: 'The uploaded snaphost link is: {{ result.snapshot_link }}'

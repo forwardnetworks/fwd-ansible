@@ -1,0 +1,22 @@
+- name: Create Intent Checks
+  connection: local
+  hosts: localhost
+
+  tasks:
+
+    - name: Create a 5 tuple Intent Check
+      forward_check:
+        state: Present
+        name: "5 tuple Intent Check added by Ansible"
+        type: "typical_5_tuple"
+        data:
+          source: "ESXi-2_vSwitch23"
+          ipv4_dst: "10.110.57.34"
+          ip_proto: tcp
+          tp_src: http
+          tp_dst: https
+      register: five_tuples_check
+
+    - name: Print 5 tuple Intent Check ID and Status
+      debug:
+        msg: 'The Intent Check ID is {{ five_tuples_check.result.id }}. Status {{ five_tuples_check.result.status }}'
