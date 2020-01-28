@@ -3,3 +3,4 @@ fwd_virtual/
 fwd-ansible.properties
 fwd-ansible-*.tar
 test.yml
+group_vars/all.yml
