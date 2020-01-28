@@ -1,10 +1,19 @@
-- name: Create Intent Checks
-  connection: local
-  hosts: localhost
+- name: Change Window Playbook
   vars:
     expected_check_status: PASS  # Default status
+    freshness: 10m               # Default snapshot freshness
 
   tasks:
+
+    - name: Ensure a recent snapshot is available
+      forward_snapshot:
+        # This demo is based on mock snapshots to avoid to collect from a real
+        # network during live demos.
+        # Feel free to change the type to "collect".
+        type: mock
+        mock_snapshot:
+          name: "{{ snapshot_name }}"
+          path: "{{ snapshot_path }}"
 
     - name: Create a 5 tuple Intent Check
       forward_check:

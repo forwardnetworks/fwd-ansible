@@ -1,0 +1,20 @@
+- name: Get networks from Forward Enterprise using Ansible URI module
+  hosts: localhost
+
+  tasks:
+
+    - name: Get all Forward Enterprise networks
+      uri:
+        url: https://app.forwardnetworks.com/api/networks
+        user:     '{{ fwd_username }}'
+        password: '{{ fwd_password }}'
+        method: GET
+        force_basic_auth: yes
+        body_format: json
+        return_content: yes
+      register: networks
+
+    - name: Print all Forward Enterprise networks
+      debug:
+        msg:
+          - "{{ networks.json }}"
